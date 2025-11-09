@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart 🛒</title>
+  <style>
+    :root {
+      --teal: #0ea5a0;
+      --teal-dark: #0b7c79;
+      --bg: linear-gradient(135deg, #fdf6ff, #e7fff8);
+      --dark: #0b3b3b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* 🌸 HEADER */
+    header {
+      background: var(--teal);
+      color: #111010;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    header .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      margin-right: 8px;
+    }
+
+    header .logo span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #070707;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fce5ff;
+      text-shadow: 0 0 8px #fff;
+    }
+
+    .find-doctor-btn {
+      background: #fff;
+      color: var(--teal) !important;
+      padding: 6px 14px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .find-doctor-btn:hover {
+      background: #fce5ff;
+      color: #000 !important;
+    }
+
+    /* 📱 Mobile Responsive Header */
+    .menu-icon {
+      font-size: 26px;
+      cursor: pointer;
+      display: none;
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background-color: var(--teal-dark);
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        width: 220px;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+    }
+
+    /* 🌿 CENTERED CART SECTION */
+    .cart-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      padding: 100px 20px 60px;
+    }
+
+    .cart-container {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .cart-container h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--dark);
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      text-shadow: 0 0 6px rgba(14, 165, 160, 0.2);
+    }
+
+    #cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 18px;
+      color: #777;
+      padding: 60px 0;
+    }
+
+    .cart-item {
+      background: #e9fff8;
+      padding: 15px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .cart-item:hover {
+      transform: scale(1.02);
+    }
+
+    .cart-item button {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cart-item button:hover {
+      background: var(--teal-dark);
+    }
+
+    /* 💸 BUY BUTTON */
+    .buy-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+      box-shadow: 0 0 12px #9afff0;
+    }
+
+    .buy-btn:hover {
+      background: var(--teal-dark);
+      box-shadow: 0 0 20px #74ffe5;
+    }
+
+    /* 🌸 FOOTER */
+    footer {
+      background: var(--teal);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      margin-top: auto;
+      width: 100%;
+      box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ✨ Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ✅ HEADER START -->
+<header class="header">
+  <a href="index.html" class="logo">
+    <img src="logo.webp" alt="STACKLY Logo">
+    <span><strong>STACKLY </strong></span>
+  </a>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html">Home 1</a>
+    <a href="home2.html">Home 2</a>
+    <a href="pet.html">Pet Pills</a>
+    <a href="drugs.html">Drugs & Supplements</a>
+
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+
+  <a href="docsavai.html" class="find-doctor-btn">Find a Doctor</a>
+
+
+  <div class="menu-icon" id="menu-icon">&#9776;</div>
+
+</header>
+<!-- ✅ HEADER END -->
+
+<!-- ✅ CSS -->
+<style>
+  /* Base Header Styling */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eaf6f4;
+    padding: 10px 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  /* Left - Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+  }
+
+  .logo span {
+    font-size: 1.2rem;
+    color: #003b3b;
+    font-weight: bold;
+  }
+
+  /* Center - Navbar */
+  .navbar {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    gap: 20px;
+  }
+
+  .navbar a {
+    text-decoration: none;
+    color: #003b3b;
+    font-weight: 500;
+  }
+
+  .navbar a:hover {
+    color: #009999;
+  }
+/* Default: hidden on desktop */
+.menu-icon {
+  font-size: 28px;
+  cursor: pointer;
+  display: none; /* hidden on large screens */
+  color: #003b3b;
+}
+
+/* Show hamburger and hide menu links on mobile */
+@media (max-width: 900px) {
+  .navbar {
+    display: none;
+    flex-direction: column;
+    background-color: #009999;
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 220px;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block; /* shows on mobile */
+  }
+
+  .find-doctor-btn {
+    display: none; /* optional: hides button */
+  }
+}
+
+  /* Right - Button */
+  .find-doctor-btn {
+    background-color: #009999;
+    color: white !important;
+    padding: 6px 14px;
+    border-radius: 25px;
+    text-decoration: none;
+    margin-left: 20px;
+    white-space: nowrap;
+  }
+
+  .find-doctor-btn:hover {
+    background-color: #007777;
+  }
+
+  /* Hamburger Icon */
+  .menu-icon {
+    font-size: 26px;
+    cursor: pointer;
+    display: none;
+    color: #003b3b;
+    margin-left: 10px;
+  }
+
+  /* ✅ Responsive: Mobile Menu */
+  @media (max-width: 900px) {
+    .navbar {
+      display: none;
+      flex-direction: column;
+      background-color: #009999;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      width: 220px;
+    }
+
+    .navbar.active {
+      display: flex;
+    }
+
+    .navbar a {
+      color: rgb(19, 19, 19);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .navbar a:hover {
+      background-color: #6b8484;
+    }
+
+    .menu-icon {
+      display: block;
+    }
+
+    .find-doctor-btn {
+      display: none; /* Hide Find Doctor button in mobile view (optional) */
+    }
+  }
+</style>
+
+<!-- ✅ WORKING JAVASCRIPT -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuIcon = document.getElementById("menu-icon");
+    const navbar = document.getElementById("navbar");
+
+    menuIcon.addEventListener("click", () => {
+      navbar.classList.toggle("active");
+    });
+  });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const menuIcon = document.getElementById("menu-icon");
+  const navbar = document.getElementById("navbar");
+
+  menuIcon.addEventListener("click", () => {
+    navbar.classList.toggle("active");
+  });
+});
+</script>
+
+
+  <!-- ✅ JS for mobile menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const menuIcon = document.getElementById("menu-icon");
+      const navbar = document.getElementById("navbar");
+      menuIcon.addEventListener("click", () => {
+        navbar.classList.toggle("active");
+      });
+    });
+  </script>
+
+  <!-- 🛒 CART SECTION -->
+  <section class="cart-section">
+    <div class="cart-container">
+      <h2>Your Shopping Cart</h2>
+      <div id="cart-items"></div>
+      <button class="buy-btn" onclick="buyNow()">Buy Now</button>
+    </div>
+  </section>
+
+  <!-- 🌸 FOOTER -->
+  <footer>
+    © 2025 Stackly Health Care | All Rights Reserved
+  </footer>
+
+  <!-- 🧠 CART SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cartContainer = document.getElementById("cart-items");
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `
+          <p class="empty-message">Your cart is empty 💖 <br><br>
+          <a href='pet.html' style='color:#0ea5a0; text-decoration:none; font-weight:600;'>Go shop now</a></p>`;
+        return;
+      }
+
+      cartContainer.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <p>${item.name} - ₹${item.price}</p>
+          <button onclick="removeItem(${index})">Delete</button>
+        </div>
+      `).join("");
+    });
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      location.reload();
+    }
+
+    function buyNow() {
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
