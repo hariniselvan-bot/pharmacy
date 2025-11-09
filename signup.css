@@ -334,7 +334,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url("login.jpg") no-repeat center center/cover;  /* 🔹 Change this to your image name */
+  background: url("login.webp") no-repeat center center/cover;  /* 🔹 Change this to your image name */
   color: #0d0c0c;
   overflow: hidden;
 }
