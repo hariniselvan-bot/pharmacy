@@ -261,6 +261,54 @@ body {
   color: #8d8989;
   overflow: hidden;
 }
+/* Push the body down so it doesn't go under the fixed header */
+body {
+  margin: 0;
+  padding-top: 90px; /* Adjust height to match your header’s total height */
+  overflow-y: auto;
+}
+
+/* Make sure login section grows naturally */
+.login-container {
+  min-height: calc(100vh - 200px); /* header + footer height roughly */
+  overflow: visible;
+}
+
+/* Keep footer wide and fixed to bottom when content is short */
+footer,
+.footer {
+  width: 100%;
+  margin-top: auto;
+}
+/* Fix overlapping & scrolling issue */
+body {
+  margin: 0;
+  padding-top: 90px; /* match header height */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Make login section flexible and centered */
+.login-container {
+  flex: 1; /* fill available vertical space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px; /* adds breathing space */
+  box-sizing: border-box;
+}
+
+/* Ensure footer covers full width and stays at bottom */
+.footer {
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  left: 0;
+}
+
 
 /* Dark overlay for contrast */
 body::before {
